@@ -30,3 +30,12 @@ DESCRIBE SMITHJ.customers;
 /* show schema tables */
 SELECT DISTINCT OWNER, OBJECT_NAME   FROM DBA_OBJECTS WHERE OBJECT_TYPE = 'TABLE'   AND OWNER = 'SMITHJ';
 
+INSERT INTO SMITHJ.customers VALUES (1,'martin','buenos aires');
+
+
+/* create table with xmltype */
+CREATE TABLE SMITHJ.warehouses(  warehouse_id NUMBER(4),  warehouse_spec XMLTYPE,  warehouse_name VARCHAR2(35),  location_id NUMBER(4));
+
+/* insert xmldata into table with xmltype */
+INSERT INTO SMITHJ.warehouses VALUES (100, XMLType('<Warehouse whNo="100"><Building>Owned</Building></Warehouse>'), 'Tower Records', 1003);
+
