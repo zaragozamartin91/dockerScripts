@@ -1,0 +1,13 @@
+# obtener la imagen
+docker pull ibmcom/websphere-traditional:9.0.0.9-profile
+
+# iniciar was traditional
+docker run --name was9 -h was9 -p 9043:9043 -p 9443:9443 -p 9080:9080 -d ibmcom/websphere-traditional:9.0.0.9-profile
+
+# obtener el password
+docker exec was9 cat /tmp/PASSWORD
+
+# console url
+https://192.168.99.100:9043/ibm/console/login.do?action=secure
+wsadmin
+h4Km08Cl
