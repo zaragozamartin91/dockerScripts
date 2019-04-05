@@ -1,0 +1,7 @@
+#!/bin/bash
+
+tn=$1
+cname=${tn:-cas}
+
+docker exec -it $cname cqlsh
+

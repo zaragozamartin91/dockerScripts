@@ -1,0 +1,11 @@
+#!/bin/bash
+
+tname=$1
+cname=${tname:-cas}
+
+tnet=$2
+nname=${tnet:-"my-net"}
+
+#7000-7001/tcp, 7199/tcp, 9042/tcp, 9160/tcp
+docker run --name $cname --network $nname -d -p 9042:9042 cassandra
+
