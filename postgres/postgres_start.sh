@@ -1,10 +1,10 @@
 #!/bin/bash
 
-tnet=$1
-vnet=${tnet:-"jenk-net"}
-
-tname=$2
+tname=$1
 vname=${tname:-"jenk-pos"}
+
+tnet=$2
+vnet=${tnet:-"jenk-net"}
 
 tvol=$3
 vvol=${tvol:-"jenk-pos-vol"}
