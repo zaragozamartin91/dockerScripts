@@ -1,0 +1,15 @@
+FROM openjdk
+
+ARG kname=kafka_2.12-2.2.0
+
+COPY $kname.tgz /opt/
+RUN /bin/bash -c "cd /opt ; tar xvf $kname.tgz"
+
+COPY server.properties /opt/$kname/config/
+
+WORKDIR /opt/$kname
+
+EXPOSE 9092
+
+CMD [ "bin/kafka-server-start.sh" , "config/server.properties" ]
+
