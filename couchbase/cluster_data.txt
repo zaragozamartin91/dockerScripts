@@ -1,0 +1,7 @@
+name: main
+
+user: admin
+pass : password
+
+user: mzaragoza
+pass : password
