@@ -8,7 +8,7 @@ do
   let port=700${i}
   docker run -v "$basedir/node${i}.conf":/usr/local/etc/redis/redis.conf --name red${i} --network my-net -p $port:$port -d redis redis-server /usr/local/etc/redis/redis.conf
   echo "Sleeping..."
-  sleep 3
+  sleep 1
   echo "Continue!"
 done
 
