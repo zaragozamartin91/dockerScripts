@@ -1,0 +1,98 @@
+version: '3'
+services: 
+  red1:
+    container_name: red1
+    image: "redis"
+    ports: 
+      - "7001:7001"
+    volumes: 
+      - ./node1.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.2
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  red2:
+    container_name: red2
+    image: "redis"
+    ports: 
+      - "7002:7002"
+    volumes: 
+      - ./node2.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.3
+    command: redis-server /usr/local/etc/redis/redis.conf
+    depends_on: 
+      - red1
+
+  red3:
+    container_name: red3
+    image: "redis"
+    ports: 
+      - "7003:7003"
+    volumes: 
+      - ./node3.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.4
+    command: redis-server /usr/local/etc/redis/redis.conf
+    depends_on: 
+      - red1
+
+  sent1:
+    container_name: sent1
+    image: "redis"
+    ports: 
+      - "5001:5001"
+    volumes: 
+      - ./sentinel1.conf:/usr/local/etc/redis/sentinel.conf
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.5
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    depends_on: 
+      - red1
+      - red2
+      - red3
+
+  sent2:
+    container_name: sent2
+    image: "redis"
+    ports: 
+      - "5002:5002"
+    volumes: 
+      - ./sentinel2.conf:/usr/local/etc/redis/sentinel.conf
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.6
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    depends_on: 
+      - red1
+      - red2
+      - red3
+
+  sent3:
+    container_name: sent3
+    image: "redis"
+    ports: 
+      - "5003:5003"
+    volumes: 
+      - ./sentinel3.conf:/usr/local/etc/redis/sentinel.conf
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.7
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    depends_on: 
+      - red1
+      - red2
+      - red3
+
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 192.168.0.0/16
